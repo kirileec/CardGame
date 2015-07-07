@@ -38,6 +38,7 @@ type
     FMainDeck: TDeck;
     FMainGame: TCardGame;
     imgback,imgfront:TBitmap ;
+
     procedure SetMainDeck(const Value: TDeck);
     procedure SetMainGame(const Value: TCardGame);
     { Private declarations }
@@ -59,22 +60,22 @@ implementation
 
 procedure TForm1.ClickButton(Sender: TObject);
 begin
-//
   Self.mainGame.ChooseCardAtIndex(GetButtonIndex(Sender));
   self.UpdateUI(GetButtonIndex(Sender));
-
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-    //init game
+  //初始化游戏
   Self.mainDeck := TDeck.Create;
   self.mainGame := TCardGame.Create(21, FMainDeck);
 
-   imgback:=TBitmap.Create ;
-   imgfront := TBitmap.Create ;
-imgfront.LoadFromFile(ExtractFilePath(Application.ExeName)+'\res\front.bmp');
- imgback.LoadFromFile(ExtractFilePath(Application.ExeName)+'\res\back.bmp');
+  imgback:=TBitmap.Create ;
+  imgfront := TBitmap.Create ;
+  imgfront.LoadFromFile(ExtractFilePath(Application.ExeName)+'\res\front.bmp');
+  imgback.LoadFromFile(ExtractFilePath(Application.ExeName)+'\res\back.bmp');
+
+  form1.DoubleBuffered := True;
 
 end;
 
@@ -126,10 +127,8 @@ end;
 
 function TForm1.GetButtonIndex(sender: TObject): Integer;
 begin
-//
   Result := TSpeedButton(sender).Tag;
 end;
-
 
 procedure TForm1.SetMainDeck(const Value: TDeck);
 begin
@@ -142,14 +141,10 @@ begin
 end;
 
 function TForm1.TitleForCard(tmpCard: TCard): string;
-
 begin
-   //
-
    Result := '';
    if tmpCard.FChosen  then
    begin
-
       Result := tmpCard.GetContents ;
    end;
 
@@ -163,24 +158,21 @@ var
 begin
   i:=1;
 
-
   for i := 1 to 20 do
   begin
     card :=TCard( FMainGame.CardAtIndex(i));
     btn := GetButton(i);
-
 
     btn.Caption := TitleForCard(card);
     if btn.Caption = '' then
     begin
        btn.Glyph := imgback ;
     end else begin
-      btn.Glyph := nil    ;
+       btn.Glyph := nil    ;
     end;
     btn.Enabled := not card.matched ;
   end;
   Form1.Caption := '分数：' + IntToStr(FMainGame.Score) +'---'+'翻牌次数: ' + IntToStr(FMainGame.FlipCount );
-
 end;
 
 end.

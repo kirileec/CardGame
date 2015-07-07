@@ -1,4 +1,7 @@
 unit Deck;
+//==============================================================================
+// 牌组类
+//==============================================================================
 
 interface
 
@@ -13,17 +16,18 @@ type
 
   published
     public
-      property Cards:TNSArray read FCards write SetCards;
-    procedure AddCard(card:TCard );
-    function DrawRandomCard:TCard;
-    constructor Create;overload ;
+      property Cards:TNSArray read FCards write SetCards; //牌组
+
+      procedure AddCard(card:TCard );
+      function DrawRandomCard:TCard;   //随机抽牌
+
+      constructor Create;overload ;
 
   end;
-
-
 implementation
 
 { TDeck }
+
 procedure DeleteArrayItem(var arr:TNSArray ;index:Integer);
 var
   Count:Cardinal ;
@@ -33,7 +37,6 @@ begin
    Move(arr[index+1],arr[index],(Count-Index)*SizeOf(arr[0]));
    SetLength(arr,Count-1);
 end;
-
 
 procedure TDeck.AddCard(card: TCard);
 begin

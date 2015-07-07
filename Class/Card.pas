@@ -1,4 +1,8 @@
 ﻿unit Card;
+//==============================================================================
+// 单一卡牌类
+//==============================================================================
+
 
 interface
 
@@ -13,23 +17,28 @@ type
     procedure SetMatched(const Value: Boolean);
     procedure SetRank(const Value: Integer);
     procedure SetSuit(const Value: Integer);
+    //返回牌值
     function rankstr(index: Integer): string;
+    //返回花色
     function suitstr(index: Integer): string;
   published
   public
-    FRank: Integer;
-    Fmatched: Boolean;
-    FSuit: Integer;
-    FChosen: Boolean;
+    FRank: Integer;     //牌值
+    Fmatched: Boolean;   //匹配
+    FSuit: Integer;       //花色
+    FChosen: Boolean;     //选中
     property matched: Boolean read Fmatched write SetMatched;
     property chosen: Boolean read FChosen write SetChosen;
     property rank: Integer read FRank write SetRank;
     property suit: Integer read FSuit write SetSuit;
+    //获取牌面
     function GetContents: string;
+    //匹配方法
     function Match(OtherCard: TCard): Integer;
   end;
-
+  //牌组
   TNSArray = array of TCard ;
+
 implementation
 
 { TCard }
